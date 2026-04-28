@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 3 UMCE-SENADIS: Ámbito Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-emerald: #065f46;
+            --secondary-teal: #0d9488;
+            --accent-navy: #1e3a8a;
+            --text-dark: #1e293b;
+            --bg-white: rgba(255, 255, 255, 0.98);
+        }
+
+        /* FONDO ANIMADO ESMERALDA - TURQUESA */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #064e3b 0%, #0d9488 50%, #1e3a8a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--text-dark);
+            margin: 0; padding: 0; min-height: 100vh; overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ENCABEZADO */
+        .header-nav { background: rgba(255, 255, 255, 0.95); border-bottom: 6px solid var(--secondary-teal); padding: 1.5rem; text-align: center; }
+        .header-nav h1 { margin: 0; font-size: 1.8rem; font-weight: 800; color: var(--primary-emerald); }
+        .header-nav p { margin: 8px 0 0 0; font-size: 0.9rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 1px; }
+
+        .main-container { max-width: 850px; margin: 2rem auto; padding: 0 1rem 4rem 1rem; }
+
+        /* PROGRESO */
+        .progress-box { background: var(--bg-white); border-radius: 15px; padding: 1.2rem; margin-bottom: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .progress-label { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 800; color: var(--primary-emerald); margin-bottom: 8px; }
+        .progress-bar { width: 100%; height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--secondary-teal); width: 0%; transition: width 0.6s ease; }
+
+        /* TARJETAS DE CONTENIDO */
+        .screen { display: none; background: var(--bg-white); border-radius: 25px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.3); }
+        .screen.active { display: block; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* IMAGEN DE PORTADA */
+        .cover-img { width: 100%; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+
+        .badge-tag { background: #d1fae5; color: var(--primary-emerald); padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; display: inline-block; margin-bottom: 1rem; text-transform: uppercase; }
+
+        /* TEXTOS */
+        h2 { color: var(--primary-emerald); font-weight: 800; font-size: 1.8rem; margin-top: 0; }
+        .purpose-box { background: #f0fdfa; border-left: 6px solid var(--secondary-teal); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; font-size: 1.1rem; }
+
+        /* BOTONES OPCIONES */
+        .options-container { display: grid; gap: 1rem; margin-top: 1.5rem; }
+        .option-btn { background: white; border: 2px solid #cbd5e1; padding: 1.2rem; border-radius: 15px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.2s; text-align: left; color: var(--text-dark); }
+        .option-btn:hover:not(:disabled) { border-color: var(--secondary-teal); background: #f0fdfa; transform: translateX(5px); }
+        .option-btn.selected { background: var(--secondary-teal); color: white; border-color: var(--primary-emerald); }
+
+        .feedback-box { margin-top: 1.5rem; padding: 1.5rem; border-radius: 15px; display: none; line-height: 1.7; border-left: 8px solid; font-size: 1.1rem; }
+        .feedback-box.info { background: #f0f9ff; border-color: #3b82f6; color: #1e3a8a; }
+
+        .btn-next { background: linear-gradient(135deg, var(--primary-emerald), var(--secondary-teal)); color: white; border: none; padding: 1.1rem 2.8rem; border-radius: 40px; font-size: 1.2rem; font-weight: 800; margin-top: 2rem; cursor: pointer; transition: 0.3s; display: block; width: fit-content; margin-left: auto; margin-right: auto; box-shadow: 0 6px 15px rgba(6, 95, 70, 0.3); }
+        .btn-next:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        .final-badge { text-align: center; }
+        .badge-icon { font-size: 6rem; margin-bottom: 1.5rem; display: block; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        @media (max-width: 600px) { .screen { padding: 1.5rem; } h2 { font-size: 1.5rem; } }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <h1>“¿Dónde están las barreras?”</h1>
+        <p>Módulo 2 - Ámbito Social - UMCE-SENADIS</p>
+    </header>
+
+    <div class="main-container">
+        <div class="progress-box">
+            <div class="progress-label">
+                <span>Progreso de la actividad</span>
+                <span id="progress-text">0/5</span>
+            </div>
+            <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        </div>
+
+        <div id="screen-intro" class="screen active">
+            <img src="https://i.postimg.cc/tTQdtfBK/portada.png" alt="Portada Actividad" class="cover-img">
+            <span class="badge-tag">Módulo 2</span>
+            <h2>Propósito</h2>
+            <p style="font-size: 1.15rem; line-height: 1.6;">Comparar los enfoques centrados en el déficit (NEET/NEEP) y el enfoque de barreras para el aprendizaje y la participación, en contextos sociales vinculados a la inclusión.</p>
+            
+            <div class="purpose-box">
+                <strong>Instrucciones:</strong>
+                <p style="margin-top: 8px;">A continuación encontrarás situaciones relacionadas con la vida social y comunitaria. Para cada caso:</p>
+                <ul style="margin-top: 5px;">
+                    <li>Identifica el enfoque presente</li>
+                    <li>Selecciona la acción más inclusiva</li>
+                </ul>
+            </div>
+            <button class="btn-next" onclick="goTo('screen-q1')">Comenzar Desafío</button>
+        </div>
+
+        <div id="screen-q1" class="screen">
+            <span class="badge-tag">Nivel 1: Identificación</span>
+            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary-emerald);">Caso 1: “Una persona no puede acceder a un trabajo por presentar una discapacidad.”</p>
+            <p style="margin-top: 1.5rem; font-weight: 700;">Identifica el enfoque presente:</p>
+            <div class="options-container">
+                <button class="option-btn" onclick="check(1, 'Enfoque centrado en el déficit (NEET/NEEP)')">Enfoque centrado en el déficit (NEET/NEEP)</button>
+                <button class="option-btn" onclick="check(1, 'Enfoque de barreras')">Enfoque de barreras</button>
+                <button class="option-btn" onclick="check(1, 'No estoy seguro/a')">No estoy seguro/a</button>
+            </div>
+            <div id="fb1" class="feedback-box info">
+                <strong>Retroalimentación:</strong> Esta afirmación sitúa la dificultad en la persona. El enfoque de barreras invita a analizar qué condiciones del entorno están limitando la participación.
+            </div>
+            <button id="btn-n1" class="btn-next" style="display:none" onclick="goTo('screen-q2')">Siguiente Caso</button>
+        </div>
+
+        <div id="screen-q2" class="screen">
+            <span class="badge-tag">Nivel 1: Identificación</span>
+            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary-emerald);">Caso 2: “La falta de accesibilidad en el transporte impide que algunas personas participen en actividades sociales.”</p>
+            <p style="margin-top: 1.5rem; font-weight: 700;">Identifica el enfoque presente:</p>
+            <div class="options-container">
+                <button class="option-btn" onclick="check(2, 'Enfoque centrado en el déficit')">Enfoque centrado en el déficit</button>
+                <button class="option-btn" onclick="check(2, 'Enfoque de barreras')">Enfoque de barreras</button>
+                <button class="option-btn" onclick="check(2, 'No estoy seguro/a')">No estoy seguro/a</button>
+            </div>
+            <div id="fb2" class="feedback-box info">
+                <strong>Retroalimentación:</strong> Aquí, la dificultad radica en el entorno, lo que permite identificar acciones para mejorar la participación.
+            </div>
+            <button id="btn-n2" class="btn-next" style="display:none" onclick="goTo('screen-q3')">Nivel 2: Decisión</button>
+        </div>
+
+        <div id="screen-q3" class="screen">
+            <span class="badge-tag">Nivel 2: Toma de Decisiones</span>
+            <p style="font-size: 1.2rem; line-height: 1.6;"><strong>Caso 3:</strong> Una persona desea participar en actividades comunitarias, pero no existen condiciones de accesibilidad. <br><br><strong>¿Qué acción refleja mejor un enfoque inclusivo?</strong></p>
+            <div class="options-container">
+                <button class="option-btn" onclick="check(3, 'Recomendar que participe en espacios especiales')">Recomendar que participe en espacios especiales</button>
+                <button class="option-btn" onclick="check(3, 'Promover cambios en el entorno para asegurar accesibilidad')">Promover cambios en el entorno para asegurar accesibilidad</button>
+                <button class="option-btn" onclick="check(3, 'Sugerir que espere nuevas oportunidades')">Sugerir que espere nuevas oportunidades</button>
+            </div>
+            <div id="fb3" class="feedback-box info">
+                <strong>Retroalimentación:</strong> La inclusión implica transformar el entorno para garantizar la participación, no limitar la participación de las personas.
+            </div>
+            <button id="btn-n3" class="btn-next" style="display:none" onclick="goTo('screen-q4')">Nivel 3: Cierre</button>
+        </div>
+
+        <div id="screen-q4" class="screen">
+            <span class="badge-tag">Nivel 3: Reflexión</span>
+            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary-emerald);">¿Qué concepto fue el más relevante en esta actividad?</p>
+            <div class="options-container">
+                <button class="option-btn" onclick="finish('Discapacidad')">Discapacidad</button>
+                <button class="option-btn" onclick="finish('Accesibilidad universal')">Accesibilidad universal</button>
+                <button class="option-btn" onclick="finish('Vida independiente')">Vida independiente</button>
+                <button class="option-btn" onclick="finish('Intersectorialidad')">Intersectorialidad</button>
+            </div>
+            <div id="fb-final" class="feedback-box info">
+                <strong>Conclusión:</strong> Todas las opciones convergen en que la inclusión social requiere acciones coordinadas entre distintos sectores y niveles.
+            </div>
+            <button id="btn-finish" class="btn-next" style="display:none" onclick="goTo('screen-end')">Finalizar Actividad</button>
+        </div>
+
+        <div id="screen-end" class="screen">
+            <div class="final-badge">
+                <span class="badge-icon">🏙️</span>
+                <h2 style="margin-bottom: 10px;">¡Excelente participación!</h2>
+                <p style="font-size: 1.2rem;">Has obtenido la insignia:</p>
+                <p style="font-size: 1.6rem; font-weight: 800; color: var(--secondary-teal); margin: 15px 0;">“Explorador/a Social de la Inclusión”</p>
+                <div style="background: #f0fdfa; padding: 1.5rem; border-radius: 20px; border: 2px solid var(--secondary-teal); margin-top: 1.5rem;">
+                    <p style="margin: 0; font-weight: 700; color: var(--primary-emerald);">Has completado con éxito el análisis del Ámbito Social.</p>
+                </div>
+                <p style="margin-top: 2rem; font-weight: 800; color: var(--primary-emerald);">UMCE-SENADIS 2026</p>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let steps = 0;
+    const TOTAL = 5;
+
+    function goTo(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        
+        if(id === 'screen-end') steps = 5;
+        else if(id === 'screen-intro') steps = 0;
+        else {
+            const seq = ['screen-q1', 'screen-q2', 'screen-q3', 'screen-q4'];
+            steps = seq.indexOf(id) + 1;
+        }
+        
+        document.getElementById('progress-fill').style.width = (steps / TOTAL * 100) + '%';
+        document.getElementById('progress-text').innerText = steps + '/' + TOTAL;
+        window.scrollTo(0,0);
+    }
+
+    function check(q, choice) {
+        const btns = document.querySelectorAll(`#screen-q${q} .option-btn`);
+        btns.forEach(b => {
+            b.disabled = true;
+            if(b.innerText === choice) b.classList.add('selected');
+        });
+        document.getElementById('fb' + q).style.display = 'block';
+        document.getElementById('btn-n' + q).style.display = 'block';
+    }
+
+    function finish(choice) {
+        const btns = document.querySelectorAll('#screen-q4 .option-btn');
+        btns.forEach(b => {
+            b.disabled = true;
+            if(b.innerText === choice) b.classList.add('selected');
+        });
+        document.getElementById('fb-final').style.display = 'block';
+        document.getElementById('btn-finish').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
